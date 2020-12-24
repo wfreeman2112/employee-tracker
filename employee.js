@@ -41,6 +41,19 @@ var connection = mysql.createConnection({
         ]
       })
       
+      //write function to display all employees
+
+      //write inner join and function to display employees by dept
+
+      //write inner join and function to display all employees by manager
+
+      //write function to add employee
+
+      //write function to remove employee
+
+      //write function to update employee role
+
+      //write function to update employee manager
   
 
   //starts server to begin listening
