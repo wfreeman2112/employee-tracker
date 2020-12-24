@@ -17,12 +17,32 @@ var connection = mysql.createConnection({
   database: "employees_DB",
 });
 
-// connection.connect(function (err) {
-//     if (err) throw err;
-//     runSearch();
-//   });
+ connection.connect(function (err) {
+     if (err) throw err;
+     runSearch();
+   });
+
+   //prompt user to choose what they want to see
+
+   function runSearch() {
+    inquirer
+      .prompt({
+        name: "action",
+        type: "rawlist",
+        message: "What would you like to do?",
+        choices: [
+          "View All Employees",
+          "View All Employees by Department",
+          "View all Employees by Manager",
+          "Add Employee",
+          "Remove Employee",
+          "Update Employee Role",
+          "Update Employee Manager"
+        ]
+      })
 
   //starts server to begin listening
     app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
-  });
+    },
+  )};
