@@ -27,3 +27,7 @@ manager_id INTEGER NULL,
 PRIMARY KEY (id)
 );
 
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ("Wendi", "Freeman", 2, 5)
+("Dominic", "Garrini", 3, 5),
+("Kevin", "Ku", 9, 3)
