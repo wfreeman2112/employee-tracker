@@ -35,6 +35,7 @@ function runSearch() {
         "Add Employee",
         "Add Role",
         "Add Department",
+        "Exit"
       ],
     })
     .then(function (response) {
@@ -52,7 +53,7 @@ function runSearch() {
           break;
 
         case "Update Employee Role":
-          updateRole();
+          updateEmployee();
           break;
 
         case "Add Employee":
@@ -65,6 +66,10 @@ function runSearch() {
 
         case "Add Department":
           addDept();
+          break;
+      
+        case "Exit":
+          connection.end();
           break;
       }
     });
@@ -87,7 +92,7 @@ function addDept() {
         response.department,
         function (err, res) {
           if (err) throw err;
-          console.table(res);
+          console.log("Department Added!");
           runSearch();
         }
       );
@@ -120,7 +125,104 @@ function viewEmployees() {
   });
 }
 
-//write function to remove employee
+function updateEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "what is the id of employee you would like to update?",
+        name: "employeeID",
+      },
 
-//write function to update employee role
-//write function to update employee manager
+      {
+        type: "input",
+        message: "what is the new role of employee you would like to update?",
+        name: "newRole",
+      },
+    ])
+    .then(function (response) {
+      connection.query(
+        "UPDATE employee SET role_id = ? WHERE id = ?",
+        [response.newRole, response.employeeID],
+        function (err, res) {
+          if (err) throw err;
+          console.log("Employee Updated!");
+          runSearch();
+        }
+      );
+    });
+}
+
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "what role would you like to add?",
+        name: "role"
+      },
+
+      {
+        type: "input",
+        message: "what is their annual salary?",
+        name: "salary"
+      },
+
+      {
+        type: "input",
+        message: "what is the id of this department?",
+        name: "deptID"
+      },
+    ])
+    .then(function (response) {
+      connection.query(
+        "INSERT INTO role(title, salary, department_id) values(?,?,?)",
+        [response.role, response.salary, response.deptID],
+        function (err, res) {
+          if (err) throw err;
+           console.log("new role added!")
+          runSearch();
+        }
+      );
+    });
+}
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "first name of employee?",
+        name: "first_name",
+      },
+
+      {
+        type: "input",
+        message: "last name of employee?",
+        name: "last_name",
+      },
+
+      {
+        type: "input",
+        message: "what is their role ID?",
+        name: "role_id",
+      },
+
+      {
+        type: "input",
+        message: "what is their manager's ID?",
+        name: "manager_id",
+      },
+    ])
+    .then(function (response) {
+      connection.query(
+        "INSERT INTO employee(first_name, last_name, role_id, manager_id) values(?, ?, ?, ?)",
+        [response.first_name, response.last_name, response.role_id, response.manager_id],
+        function (err, res) {
+          if (err) throw err;
+          console.log("Employee Added!");
+          runSearch();
+        }
+      );
+    });
+}
