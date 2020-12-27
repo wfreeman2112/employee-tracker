@@ -35,9 +35,12 @@ function runSearch() {
         "Add Employee",
         "Add Role",
         "Add Department",
+        "Update Employee Manager",
         "Exit"
       ],
     })
+
+    //write switch case to get responses
     .then(function (response) {
       switch (response.action) {
         case "View All Employees":
@@ -67,16 +70,44 @@ function runSearch() {
         case "Add Department":
           addDept();
           break;
-      
+
         case "Exit":
           connection.end();
           break;
       }
     });
-}
-//function to add department
+  }
+  
 
-//write function to display all departments
+//write function to view all employees
+function viewEmployees() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    runSearch();
+
+  });
+}
+
+//write function to view all departments
+function viewDepartments() {
+  connection.query("SELECT * FROM department", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    runSearch();
+  });
+}
+
+//write function to view roles
+function viewRoles() {
+  connection.query("SELECT * FROM role", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    runSearch();
+  });
+}
+
+//write function to add departments
 function addDept() {
   inquirer
     .prompt([
@@ -99,32 +130,7 @@ function addDept() {
     });
 }
 
-//write function to display all departments
-function viewDepartments() {
-  connection.query("SELECT * FROM department", function (err, res) {
-    if (err) throw err;
-    console.table(res);
-    runSearch();
-  });
-}
-
-//write function to view roles
-function viewRoles() {
-  connection.query("SELECT * FROM role", function (err, res) {
-    if (err) throw err;
-    console.table(res);
-    runSearch();
-  });
-}
-
-function viewEmployees() {
-  connection.query("SELECT * FROM employee", function (err, res) {
-    if (err) throw err;
-    console.table(res);
-    runSearch();
-  });
-}
-
+//write function to update employees
 function updateEmployee() {
   inquirer
     .prompt([
@@ -153,6 +159,7 @@ function updateEmployee() {
     });
 }
 
+//write function to add roles
 function addRole() {
   inquirer
     .prompt([
@@ -187,6 +194,7 @@ function addRole() {
     });
 }
 
+//write function to add employees
 function addEmployee() {
   inquirer
     .prompt([
@@ -226,3 +234,4 @@ function addEmployee() {
       );
     });
 }
+
