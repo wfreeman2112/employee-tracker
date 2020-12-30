@@ -35,7 +35,6 @@ function runSearch() {
         "Add Employee",
         "Add Role",
         "Add Department",
-        "Update Employee Manager",
         "Exit"
       ],
     })
@@ -77,7 +76,7 @@ function runSearch() {
       }
     });
   }
-  
+
 
 //write function to view all employees
 function viewEmployees() {
@@ -234,4 +233,5 @@ function addEmployee() {
       );
     });
 }
+
 
